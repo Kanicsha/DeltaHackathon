@@ -17,13 +17,16 @@
         android:theme="@style/Theme.D_XNYL"
         tools:targetApi="31">
         <activity
-            android:name=".CalenderViewActivity"
+            android:name="com.example.xnyl.CalenderViewActivity"
             android:exported="false" />
         <activity
-            android:name=".QRcodeProfile"
+            android:name="com.example.xnyl.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.xnyl.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.xnyl.QRcodeProfile"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +36,7 @@
         </activity>
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name="com.example.xnyl.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

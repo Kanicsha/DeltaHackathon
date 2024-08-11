@@ -1,4 +1,4 @@
-package com.example.d_xnyl;
+package com.example.xnyl;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.d_xnyl.R;
 
 import java.util.Calendar;
 
@@ -35,6 +37,9 @@ public class CalenderViewActivity extends AppCompatActivity {
                         = dayOfMonth + "-"
                         + (month + 1) + "-" + year;
                 year1=year;
+                Calendar date1=Calendar.getInstance();
+
+
                 dayOfMonth1=dayOfMonth;
                 month1=month+1;
 
@@ -48,12 +53,12 @@ public class CalenderViewActivity extends AppCompatActivity {
             }
         });
 
-        schedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddCalendarEvent(v);
-            }
-        });
+//        schedule.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AddCalendarEvent(v);
+//            }
+//        });
 
     }
     public void AddCalendarEvent(View view) {

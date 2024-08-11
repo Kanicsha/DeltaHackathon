@@ -1,14 +1,13 @@
-package com.example.d_xnyl;
-
-import static java.security.AccessController.getContext;
+package com.example.xnyl;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.style.IconMarginSpan;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,20 +18,19 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.d_xnyl.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.qrcode.encoder.ByteMatrix;
+import com.google.zxing.integration.android.IntentResult;
 import com.journeyapps.barcodescanner.ScanIntentResult;
 
 public class QRcodeProfile extends AppCompatActivity {
  Bitmap bitmap;
+ TextView message,messageformat;
     private ActivityResultLauncher<Intent> scanQrResultLauncher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +41,8 @@ public class QRcodeProfile extends AppCompatActivity {
         Button generate_qr=findViewById(R.id.generate);
         Button scan_qr=findViewById(R.id.scan);
         TextView textView=findViewById(R.id.name);
+        message=findViewById(R.id.message);
+        messageformat=findViewById(R.id.messageformat);
         scanQrResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 resultData ->{
@@ -116,11 +116,30 @@ public class QRcodeProfile extends AppCompatActivity {
                 intentIntegrator.setPrompt("Scan a barcode or QR Code");
                 intentIntegrator.setOrientationLocked(true);
                 intentIntegrator.initiateScan();
-
             }
+
         });
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // if the intentResult is null then
+        // toast a message as "cancelled"
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(getBaseContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+            } else {
+                // if the intentResult is not null we'll set
+                // the content and format of scan message
+                String url=intentResult.getContents();
+                message.setText(intentResult.getContents());
+                messageformat.setText(intentResult.getFormatName());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 
 

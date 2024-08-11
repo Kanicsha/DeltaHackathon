@@ -1,4 +1,4 @@
-package com.example.d_xnyl;
+package com.example.xnyl;
 
 import android.app.Service;
 import android.content.Intent;
